@@ -1,10 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Character } from 'src/app/core/interface';
+import { CharacterService } from 'src/app/shared/services/chracter/character.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
+export class ListComponent implements OnDestroy {
+  subcribes: Subscription[] = [];
+  characters: Character[] = [];
+  page = 1;
 
+  constructor(private readonly service: CharacterService) {
+    this.subcribes.push(
+      this.service.getAllCharacters().subscribe((resp) => {
+        this.characters = resp.results;
+      })
+    );
+  }
+
+  onScroll(): void {
+    this.service.getAllCharacters(++this.page).subscribe((resp) => {
+      this.characters.push(...resp.results);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subcribes.forEach((sub) => {
+      sub.unsubscribe();
+    });
+  }
 }

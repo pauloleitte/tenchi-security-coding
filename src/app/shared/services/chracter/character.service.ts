@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiResponseList, Character } from 'src/app/core/interface';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
@@ -11,8 +12,10 @@ export class CharacterService {
     this.apiUrl = environment.apiUrl;
   }
 
-  getAllCharacters() {
-    return this.http.get(`${this.apiUrl}/character`);
+  getAllCharacters(page?: number) {
+    return this.http.get<ApiResponseList<Character>>(
+      `${this.apiUrl}/character?page=${page ?? ''}`
+    );
   }
 
   getSingleCharacter(id: number) {

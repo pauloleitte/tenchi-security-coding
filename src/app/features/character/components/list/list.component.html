@@ -1,1 +1,25 @@
-<p>list works!</p>
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="onScroll()"
+  class="container-list"
+>
+  <mat-card *ngFor="let character of characters">
+    <mat-card-header>
+      <mat-card-title>{{ character.name }}</mat-card-title>
+      <mat-card-subtitle>{{ character.species }}</mat-card-subtitle>
+    </mat-card-header>
+    <img
+      mat-card-image
+      *ngIf="character.image"
+      [src]="character.image"
+      alt="{{ character.name }}"
+    />
+    <mat-card-content>
+      <p>
+        {{ character.type }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

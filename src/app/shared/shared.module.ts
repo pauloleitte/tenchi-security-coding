@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 
@@ -31,6 +32,7 @@ const modules = [
   MatToolbarModule,
   MatIconModule,
   MatProgressSpinnerModule,
+  InfiniteScrollModule
 ];
 
 const components = [NavComponent, FooterComponent];
