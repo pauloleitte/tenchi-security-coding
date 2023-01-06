@@ -1,19 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from 'src/app/shared/shared.module';
-import { HomeRoutingModule } from './home-routing.module';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HomeRoutingModule
-  ]
+  declarations: [DashboardComponent],
+  imports: [NgChartsModule, CommonModule, SharedModule, HomeRoutingModule],
 })
-export class HomeModule { }
+export class HomeModule {}
