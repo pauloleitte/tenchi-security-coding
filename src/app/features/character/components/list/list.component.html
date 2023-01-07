@@ -1,3 +1,10 @@
+<div class="form-search">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Ex: Rick"   (input)="onSearchQueryInput($event)" />
+    </mat-form-field>
+</div>
+
 <div
   infinite-scroll
   [infiniteScrollDistance]="2"
@@ -5,7 +12,10 @@
   (scrolled)="onScroll()"
   class="container-list"
 >
-  <mat-card *ngFor="let character of characters" (click)="onClickCard(character.id)">
+  <mat-card
+    *ngFor="let character of characters"
+    (click)="onClickCard(character.id)"
+  >
     <mat-card-header>
       <mat-card-title>{{ character.name }}</mat-card-title>
       <mat-card-subtitle

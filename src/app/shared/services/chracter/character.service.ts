@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class CharacterService {
-  apiUrl = '';
+  private apiUrl = '';
   constructor(private readonly http: HttpClient) {
     this.apiUrl = environment.apiUrl;
   }
@@ -20,5 +20,11 @@ export class CharacterService {
 
   getSingleCharacter(id: number) {
     return this.http.get<Character>(`${this.apiUrl}/character/${id}`);
+  }
+
+  getSingleCharacterByName(name: string) {
+    return this.http.get<ApiResponseList<Character>>(
+      `${this.apiUrl}/character/?name=${name}`
+    );
   }
 }

@@ -1,3 +1,21 @@
+.form-search {
+  @media screen and (min-width: 601px) {
+    max-width: 600px;
+    form {
+      max-width: 600px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+
+    form {
+      width: 100%;
+    }
+  }
+
+  margin: 2rem;
+}
 
 .container-list {
   color: #fff;

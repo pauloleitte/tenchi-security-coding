@@ -1,6 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Subject,
+  Subscription
+} from 'rxjs';
 import { Character } from 'src/app/core/interface';
 import { CharacterService } from 'src/app/shared/services/chracter/character.service';
 
@@ -12,6 +17,7 @@ import { CharacterService } from 'src/app/shared/services/chracter/character.ser
 export class ListComponent implements OnDestroy {
   subcribes: Subscription[] = [];
   characters: Character[] = [];
+  private readonly searchSubject = new Subject<string>();
   page = 1;
 
   constructor(
@@ -23,9 +29,25 @@ export class ListComponent implements OnDestroy {
         this.characters = resp.results;
       })
     );
+
+    this.subcribes.push(
+      this.searchSubject
+        .pipe(debounceTime(400), distinctUntilChanged())
+        .subscribe(searchQuery => {
+          this.service.getSingleCharacterByName(searchQuery).subscribe(resp => {
+            this.characters = resp.results;
+          })
+        })
+    );
   }
+
+  onSearchQueryInput(event: Event): void {
+    const searchQuery = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(searchQuery?.trim());
+  }
+
   onClickCard(id: number) {
-    this.router.navigateByUrl(`character/${id}`)
+    this.router.navigateByUrl(`character/${id}`);
   }
 
   onScroll(): void {
