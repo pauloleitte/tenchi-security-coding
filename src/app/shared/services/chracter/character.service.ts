@@ -14,11 +14,11 @@ export class CharacterService {
 
   getAllCharacters(page?: number) {
     return this.http.get<ApiResponseList<Character>>(
-      `${this.apiUrl}/character?page=${page ?? ''}`
+      `${this.apiUrl}/character?page=${page ?? '1'}`
     );
   }
 
   getSingleCharacter(id: number) {
-    return this.http.get(`${this.apiUrl}/character/${id}`);
+    return this.http.get<Character>(`${this.apiUrl}/character/${id}`);
   }
 }

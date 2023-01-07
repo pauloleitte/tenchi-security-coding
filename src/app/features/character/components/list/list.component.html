@@ -5,10 +5,12 @@
   (scrolled)="onScroll()"
   class="container-list"
 >
-  <mat-card *ngFor="let character of characters">
+  <mat-card *ngFor="let character of characters" (click)="onClickCard(character.id)">
     <mat-card-header>
       <mat-card-title>{{ character.name }}</mat-card-title>
-      <mat-card-subtitle>{{ character.species }}</mat-card-subtitle>
+      <mat-card-subtitle
+        >{{ character.species }} - {{ character.status }}</mat-card-subtitle
+      >
     </mat-card-header>
     <img
       mat-card-image

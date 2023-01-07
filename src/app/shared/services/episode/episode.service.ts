@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Episode } from 'src/app/core/interface';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
@@ -16,6 +17,6 @@ export class EpisodeService {
   }
 
   getSingleEpisode(id: number) {
-    return this.http.get(`${this.apiUrl}/episode/${id}`);
+    return this.http.get<Episode>(`${this.apiUrl}/episode/${id}`);
   }
 }

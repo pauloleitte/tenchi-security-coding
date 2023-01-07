@@ -1,1 +1,28 @@
-<p>detail works!</p>
+<div class="container-detail">
+  <mat-progress-spinner *ngIf="loading"></mat-progress-spinner>
+  <mat-card *ngIf="!loading">
+    <mat-card-header>
+      <img mat-card-avatar [src]="character.image" [alt]="character.name" />
+      <mat-card-title>{{ character.name }}</mat-card-title>
+      <mat-card-subtitle
+        >{{ character.species }} - {{ character.status }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="character-info">
+        <label> Last known location: </label>
+        <p>{{ character.location.name }}</p>
+        <label> First seen in: </label>
+        <p>{{episodes[0].name}}</p>
+      </div>
+      <h4>Episodes</h4>
+      <div class="episode-list">
+        <mat-selection-list [multiple]="false">
+          <mat-list-option *ngFor="let episode of episodes" [value]="episode">
+            {{ episode.name }}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
