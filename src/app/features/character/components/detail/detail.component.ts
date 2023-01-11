@@ -2,8 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character, Episode } from 'src/app/core/interface';
-import { CharacterService } from 'src/app/shared/services/chracter/character.service';
-import { EpisodeService } from 'src/app/shared/services/episode/episode.service';
+import { CharacterService } from '../../../../shared/services/character/character.service';
+import { EpisodeService } from '../../../../shared/services/episode/episode.service';
 
 @Component({
   selector: 'app-detail',

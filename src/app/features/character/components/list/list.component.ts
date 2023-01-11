@@ -7,7 +7,7 @@ import {
   Subscription
 } from 'rxjs';
 import { Character } from 'src/app/core/interface';
-import { CharacterService } from 'src/app/shared/services/chracter/character.service';
+import { CharacterService } from '../../../../shared/services/character/character.service';
 
 @Component({
   selector: 'app-list',

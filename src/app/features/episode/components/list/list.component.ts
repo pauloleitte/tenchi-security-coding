@@ -6,8 +6,8 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { Episode } from 'src/app/core/interface';
-import { EpisodeService } from 'src/app/shared/services/episode/episode.service';
+import { Episode } from '../../../../core/interface';
+import { EpisodeService } from '../../../../shared/services/episode/episode.service';
 
 @Component({
   selector: 'app-list',

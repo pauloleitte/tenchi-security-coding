@@ -6,8 +6,8 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { Location } from 'src/app/core/interface';
-import { LocationService } from 'src/app/shared/services/location/location.service';
+import { Location } from '../../../../core/interface';
+import { LocationService } from '../../../../shared/services/location/location.service';
 
 @Component({
   selector: 'app-list',

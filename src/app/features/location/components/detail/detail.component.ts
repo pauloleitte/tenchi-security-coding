@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Character, Location } from 'src/app/core/interface';
-import { CharacterService } from 'src/app/shared/services/chracter/character.service';
-import { LocationService } from 'src/app/shared/services/location/location.service';
+import { Character, Location } from '../../../../core/interface';
+import { CharacterService } from '../../../../shared/services/character/character.service';
+import { LocationService } from '../../../../shared/services/location/location.service';
 
 @Component({
   selector: 'app-detail',
