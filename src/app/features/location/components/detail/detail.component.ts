@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character, Location } from '../../../../core/interface';
@@ -10,7 +10,7 @@ import { LocationService } from '../../../../shared/services/location/location.s
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit, OnDestroy {
   subcribes: Subscription[] = [];
   loading = true;
   idLocation = '';
@@ -23,11 +23,13 @@ export class DetailComponent {
     private readonly service: LocationService,
     private readonly characterService: CharacterService
   ) {
-    this.subcribes.push(
-      this.route.params.subscribe((params) => {
-        this.idLocation = params['id'];
-      })
-    );
+    this.idLocation = this.route.snapshot.params['id'];
+  }
+  ngOnInit(): void {
+    this.getLocation();
+  }
+
+  getLocation() {
     this.subcribes.push(
       this.service
         .getSingleLocation(Number(this.idLocation))

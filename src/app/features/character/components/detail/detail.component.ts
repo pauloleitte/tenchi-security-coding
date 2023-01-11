@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character, Episode } from 'src/app/core/interface';
@@ -10,7 +10,7 @@ import { EpisodeService } from '../../../../shared/services/episode/episode.serv
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnDestroy {
+export class DetailComponent implements OnInit, OnDestroy {
   subcribes: Subscription[] = [];
   loading = true;
   firstSeenIn = '';
@@ -24,15 +24,18 @@ export class DetailComponent implements OnDestroy {
     private readonly service: CharacterService,
     private readonly episodeService: EpisodeService
   ) {
-    this.subcribes.push(
-      this.route.params.subscribe((params) => {
-        this.idCharacter = params['id'];
-      })
-    );
+    this.idCharacter = this.route.snapshot.params['id'];
+  }
+
+  ngOnInit(): void {
+    this.getCharacter();
+  }
+
+  getCharacter(): void {
     this.subcribes.push(
       this.service
         .getSingleCharacter(Number(this.idCharacter))
-        .subscribe(async (character) => {
+        .subscribe((character) => {
           this.character = character;
           this.getEpisodes();
           this.loading = false;
@@ -40,7 +43,7 @@ export class DetailComponent implements OnDestroy {
     );
   }
 
-  getEpisodes() {
+  getEpisodes(): void {
     this.character.episode.forEach((url) => {
       let firtsCall = true;
       const result = url.split('/');
@@ -55,7 +58,7 @@ export class DetailComponent implements OnDestroy {
     });
   }
 
-  onEpisodeClick(id: number) {
+  onEpisodeClick(id: number): void {
     this.router.navigateByUrl(`episode/${id}`);
   }
 

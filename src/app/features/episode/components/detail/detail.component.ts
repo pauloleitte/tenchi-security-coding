@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character, Episode } from '../../../../core/interface';
@@ -10,7 +10,7 @@ import { EpisodeService } from '../../../../shared/services/episode/episode.serv
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnDestroy {
+export class DetailComponent implements OnInit, OnDestroy {
   subcribes: Subscription[] = [];
   loading = true;
   idEpisode = '';
@@ -23,11 +23,13 @@ export class DetailComponent implements OnDestroy {
     private readonly service: EpisodeService,
     private readonly characterService: CharacterService
   ) {
-    this.subcribes.push(
-      this.route.params.subscribe((params) => {
-        this.idEpisode = params['id'];
-      })
-    );
+    this.idEpisode = this.route.snapshot.params['id'];
+  }
+  ngOnInit(): void {
+    this.getEpisode();
+  }
+
+  getEpisode() {
     this.subcribes.push(
       this.service
         .getSingleEpisode(Number(this.idEpisode))
