@@ -1,1 +1,23 @@
-<p>detail works!</p>
+<div class="container-detail">
+  <mat-progress-spinner *ngIf="loading"></mat-progress-spinner>
+  <mat-card *ngIf="!loading">
+    <mat-card-header>
+      <mat-card-title>{{ episode.name }}</mat-card-title>
+      <mat-card-subtitle>{{ episode.episode }} - {{episode.air_date}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <h4>Characters</h4>
+      <div class="container-list">
+        <mat-selection-list [multiple]="false">
+          <mat-list-option
+            (click)="onCharacterClick(character.id)"
+            *ngFor="let character of characters"
+            [value]="episode"
+          >
+            {{ character.name }}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,10 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Subject,
+  Subscription
+} from 'rxjs';
+import { Location } from 'src/app/core/interface';
+import { LocationService } from 'src/app/shared/services/location/location.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
+export class ListComponent implements OnDestroy {
+  subcribes: Subscription[] = [];
+  locations: Location[] = [];
+  private readonly searchSubject = new Subject<string>();
+  page = 1;
 
+  constructor(
+    private readonly router: Router,
+    private readonly service: LocationService
+  ) {
+    this.subcribes.push(
+      this.service.getAllLocations().subscribe((resp) => {
+        this.locations = resp.results;
+      })
+    );
+    this.subcribes.push(
+      this.searchSubject
+        .pipe(debounceTime(400), distinctUntilChanged())
+        .subscribe((searchQuery) => {
+          this.service
+            .getSingleLocationByName(searchQuery)
+            .subscribe((resp) => {
+              this.locations = resp.results;
+            });
+        })
+    );
+  }
+
+  onClickCard(id: number) {
+    this.router.navigateByUrl(`location/${id}`);
+  }
+
+  onSearchQueryInput(event: Event): void {
+    const searchQuery = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(searchQuery?.trim());
+  }
+
+  onScroll(): void {
+    this.service.getAllLocations(++this.page).subscribe((resp) => {
+      this.locations.push(...resp.results);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subcribes.forEach((sub) => {
+      sub.unsubscribe();
+    });
+  }
 }

@@ -49,6 +49,10 @@ export class DetailComponent implements OnDestroy {
     this.loading = false;
   }
 
+  onEpisodeClick(id: number){
+    this.router.navigateByUrl(`episode/${id}`)
+  }
+
   ngOnDestroy(): void {
     this.subcribes.forEach((sub) => sub.unsubscribe());
   }

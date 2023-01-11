@@ -1,1 +1,24 @@
-<p>detail works!</p>
+<div class="container-detail">
+  <mat-progress-spinner *ngIf="loading"></mat-progress-spinner>
+  <mat-card *ngIf="!loading">
+    <mat-card-header>
+      <mat-card-title>{{ location.name }}</mat-card-title>
+      <mat-card-subtitle
+        >{{ location.type }} - {{ location.dimension }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <h4>Characters</h4>
+      <div class="container-list">
+        <mat-selection-list [multiple]="false">
+          <mat-list-option
+            (click)="onCharacterClick(resident.id)"
+            *ngFor="let resident of residents"
+          >
+            {{ resident.name }}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -9,16 +9,18 @@
       >
     </mat-card-header>
     <mat-card-content>
-      <div class="character-info">
-        <label> Last known location: </label>
-        <p>{{ character.location.name }}</p>
-        <label> First seen in: </label>
-        <p>{{episodes[0].name}}</p>
-      </div>
+      <label> Last known location: </label>
+      <p>{{ character.location.name }}</p>
+      <label> First seen in: </label>
+      <p>{{ episodes[0].name }}</p>
       <h4>Episodes</h4>
-      <div class="episode-list">
+      <div class="container-list">
         <mat-selection-list [multiple]="false">
-          <mat-list-option *ngFor="let episode of episodes" [value]="episode">
+          <mat-list-option
+            *ngFor="let episode of episodes"
+            [value]="episode"
+            (click)="onEpisodeClick(episode.id)"
+          >
             {{ episode.name }}
           </mat-list-option>
         </mat-selection-list>

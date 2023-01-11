@@ -1,1 +1,26 @@
-<p>list works!</p>
+<div class="form-search">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      placeholder="Ex: The Ricklantis Mixup"
+      (input)="onSearchQueryInput($event)"
+    />
+  </mat-form-field>
+</div>
+
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="onScroll()"
+  class="container-list"
+>
+  <mat-card *ngFor="let episode of episodes" (click)="onClickCard(episode.id)">
+    <mat-card-header>
+      <mat-card-title>{{ episode.name }}</mat-card-title>
+      <mat-card-subtitle>{{ episode.episode }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content> </mat-card-content>
+  </mat-card>
+</div>

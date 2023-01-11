@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Episode } from 'src/app/core/interface';
+import { ApiResponseList, Episode } from 'src/app/core/interface';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
@@ -12,11 +12,19 @@ export class EpisodeService {
     this.apiUrl = environment.apiUrl;
   }
 
-  getAllEpisodes() {
-    return this.http.get(`${this.apiUrl}/episode`);
+  getAllEpisodes(page?: number) {
+    return this.http.get<ApiResponseList<Episode>>(
+      `${this.apiUrl}/episode?page=${page ?? '1'}`
+    );
   }
 
   getSingleEpisode(id: number) {
     return this.http.get<Episode>(`${this.apiUrl}/episode/${id}`);
+  }
+
+  getSingleEpisodeByName(name: string) {
+    return this.http.get<ApiResponseList<Episode>>(
+      `${this.apiUrl}/episode/?name=${name}`
+    );
   }
 }
