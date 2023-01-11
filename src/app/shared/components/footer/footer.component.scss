@@ -1,8 +1,16 @@
 footer {
-  position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
   height: 50px;
   width: 100%;
+
+  @media screen and (min-height: 671px) {
+    position: fixed;
+  }
+
+  @media screen and (max-height: 670px) {
+    position: relative;
+    margin-top: 1rem;
+  }
 }

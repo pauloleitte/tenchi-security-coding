@@ -11,8 +11,10 @@
     <mat-card-content>
       <label> Last known location: </label>
       <p>{{ character.location.name }}</p>
+      <label> Origin: </label>
+      <p>{{ character.origin.name }}</p>
       <label> First seen in: </label>
-      <p>{{ episodes[0].name }}</p>
+      <p>{{ firstSeenIn }}</p>
       <h4>Episodes</h4>
       <div class="container-list">
         <mat-selection-list [multiple]="false">

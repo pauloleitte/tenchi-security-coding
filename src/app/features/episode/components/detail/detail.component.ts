@@ -34,6 +34,7 @@ export class DetailComponent implements OnDestroy {
         .subscribe((character) => {
           this.episode = character;
           this.getCharacters();
+          this.loading = false;
         })
     );
   }
@@ -52,7 +53,6 @@ export class DetailComponent implements OnDestroy {
           this.characters.push(episode);
         });
     });
-    this.loading = false;
   }
 
   ngOnDestroy(): void {

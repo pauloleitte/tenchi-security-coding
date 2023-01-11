@@ -13,6 +13,7 @@ import { EpisodeService } from 'src/app/shared/services/episode/episode.service'
 export class DetailComponent implements OnDestroy {
   subcribes: Subscription[] = [];
   loading = true;
+  firstSeenIn = '';
   idCharacter = '';
   character: Character;
   episodes: Episode[] = [];
@@ -31,26 +32,31 @@ export class DetailComponent implements OnDestroy {
     this.subcribes.push(
       this.service
         .getSingleCharacter(Number(this.idCharacter))
-        .subscribe((character) => {
+        .subscribe(async (character) => {
           this.character = character;
           this.getEpisodes();
+          this.loading = false;
         })
     );
   }
 
   getEpisodes() {
     this.character.episode.forEach((url) => {
+      let firtsCall = true;
       const result = url.split('/');
       const id = result[result.length - 1];
       this.episodeService.getSingleEpisode(Number(id)).subscribe((episode) => {
+        if (firtsCall) {
+          this.firstSeenIn = episode.name;
+          firtsCall = false;
+        }
         this.episodes.push(episode);
       });
     });
-    this.loading = false;
   }
 
-  onEpisodeClick(id: number){
-    this.router.navigateByUrl(`episode/${id}`)
+  onEpisodeClick(id: number) {
+    this.router.navigateByUrl(`episode/${id}`);
   }
 
   ngOnDestroy(): void {
