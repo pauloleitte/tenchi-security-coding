@@ -25,8 +25,6 @@
 - Number of Character
 - Number of Locations
 - Number of Episodes
-- Total Character per Episodes
-- Total Character per Location
 - Chart of Character per Episode
 - Chart of Character per Location
 
