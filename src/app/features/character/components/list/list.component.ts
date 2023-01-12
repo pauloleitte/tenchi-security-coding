@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   debounceTime,
@@ -14,7 +14,7 @@ import { CharacterService } from '../../../../shared/services/character/characte
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnDestroy {
+export class ListComponent implements OnInit, OnDestroy {
   subcribes: Subscription[] = [];
   characters: Character[] = [];
   private readonly searchSubject = new Subject<string>();
@@ -25,19 +25,24 @@ export class ListComponent implements OnDestroy {
     private readonly service: CharacterService
   ) {
     this.subcribes.push(
+      this.searchSubject
+        .pipe(debounceTime(400), distinctUntilChanged())
+        .subscribe((searchQuery) => {
+          this.service.getCharactersByName(searchQuery).subscribe((resp) => {
+            this.characters = resp.results;
+          });
+        })
+    );
+  }
+  ngOnInit(): void {
+    this.getCharacters();
+  }
+
+  getCharacters(): void {
+    this.subcribes.push(
       this.service.getAllCharacters().subscribe((resp) => {
         this.characters = resp.results;
       })
-    );
-
-    this.subcribes.push(
-      this.searchSubject
-        .pipe(debounceTime(400), distinctUntilChanged())
-        .subscribe(searchQuery => {
-          this.service.getSingleCharacterByName(searchQuery).subscribe(resp => {
-            this.characters = resp.results;
-          })
-        })
     );
   }
 
@@ -46,7 +51,7 @@ export class ListComponent implements OnDestroy {
     this.searchSubject.next(searchQuery?.trim());
   }
 
-  onClickCard(id: number) {
+  onClickCard(id: number): void {
     this.router.navigateByUrl(`character/${id}`);
   }
 

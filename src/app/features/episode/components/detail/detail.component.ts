@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.getEpisode();
   }
 
-  getEpisode() {
+  getEpisode(): void {
     this.subcribes.push(
       this.service
         .getSingleEpisode(Number(this.idEpisode))
@@ -41,11 +41,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  onCharacterClick(id: number) {
+  onCharacterClick(id: number): void {
     this.router.navigateByUrl(`/character/${id}`);
   }
 
-  getCharacters() {
+  getCharacters(): void {
     this.episode.characters.forEach((url) => {
       const result = url.split('/');
       const id = result[result.length - 1];

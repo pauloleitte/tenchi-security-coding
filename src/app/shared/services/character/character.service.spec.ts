@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import {
-  HttpClientTestingModule
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CharacterService } from './character.service';
 
 describe('CharacterService', () => {
@@ -34,9 +32,9 @@ describe('CharacterService', () => {
     expect(spy).toBeCalledWith(1);
   });
 
-  it('should be test getSingleCharacterByName', () => {
-    const spy = jest.spyOn(service, 'getSingleCharacterByName');
-    service.getSingleCharacterByName('Rick');
+  it('should be test getCharactersByName', () => {
+    const spy = jest.spyOn(service, 'getCharactersByName');
+    service.getCharactersByName('Rick');
     expect(spy).toBeCalled();
     expect(spy).toBeCalledTimes(1);
     expect(spy).toBeCalledWith('Rick');

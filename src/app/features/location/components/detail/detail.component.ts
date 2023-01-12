@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.getLocation();
   }
 
-  getLocation() {
+  getLocation(): void {
     this.subcribes.push(
       this.service
         .getSingleLocation(Number(this.idLocation))
@@ -40,11 +40,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  onCharacterClick(id: number) {
+  onCharacterClick(id: number): void {
     this.router.navigateByUrl(`/character/${id}`);
   }
 
-  getCharacters() {
+  getCharacters(): void {
     this.location.residents.forEach((url: string) => {
       const result = url.split('/');
       const id = result[result.length - 1];

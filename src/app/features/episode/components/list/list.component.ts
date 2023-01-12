@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   debounceTime,
@@ -14,7 +14,7 @@ import { EpisodeService } from '../../../../shared/services/episode/episode.serv
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnDestroy {
+export class ListComponent implements OnInit, OnDestroy {
   subcribes: Subscription[] = [];
   episodes: Episode[] = [];
   private readonly searchSubject = new Subject<string>();
@@ -25,23 +25,28 @@ export class ListComponent implements OnDestroy {
     private readonly service: EpisodeService
   ) {
     this.subcribes.push(
-      this.service.getAllEpisodes().subscribe((resp) => {
-        this.episodes = resp.results;
-      })
-    );
-
-    this.subcribes.push(
       this.searchSubject
         .pipe(debounceTime(400), distinctUntilChanged())
         .subscribe((searchQuery) => {
-          this.service.getSingleEpisodeByName(searchQuery).subscribe((resp) => {
+          this.service.getEpisodesByName(searchQuery).subscribe((resp) => {
             this.episodes = resp.results;
           });
         })
     );
   }
+  ngOnInit(): void {
+    this.getEpisodes();
+  }
 
-  onClickCard(id: number) {
+  getEpisodes(): void {
+    this.subcribes.push(
+      this.service.getAllEpisodes().subscribe((resp) => {
+        this.episodes = resp.results;
+      })
+    );
+  }
+
+  onClickCard(id: number): void {
     this.router.navigateByUrl(`episode/${id}`);
   }
 

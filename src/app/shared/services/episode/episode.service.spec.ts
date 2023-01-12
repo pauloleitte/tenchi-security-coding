@@ -32,9 +32,9 @@ describe('EpisodeService', () => {
     expect(spy).toBeCalledWith(1);
   });
 
-  it('should be test getSingleEpisodeByName', () => {
-    const spy = jest.spyOn(service, 'getSingleEpisodeByName');
-    service.getSingleEpisodeByName('Pilot');
+  it('should be test getEpisodesByName', () => {
+    const spy = jest.spyOn(service, 'getEpisodesByName');
+    service.getEpisodesByName('Pilot');
     expect(spy).toBeCalled();
     expect(spy).toBeCalledTimes(1);
     expect(spy).toBeCalledWith('Pilot');

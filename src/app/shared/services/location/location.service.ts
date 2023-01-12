@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.prod';
 import { ApiResponseList, Location } from '../../../core/interface';
 
@@ -7,23 +8,23 @@ import { ApiResponseList, Location } from '../../../core/interface';
   providedIn: 'root',
 })
 export class LocationService {
-  apiUrl = '';
+  private apiUrl = '';
 
   constructor(private readonly http: HttpClient) {
     this.apiUrl = environment.apiUrl;
   }
 
-  getAllLocations(page?: number) {
+  getAllLocations(page: number = 1): Observable<ApiResponseList<Location>> {
     return this.http.get<ApiResponseList<Location>>(
-      `${this.apiUrl}/location?page=${page ?? '1'}`
+      `${this.apiUrl}/location?page=${page}`
     );
   }
 
-  getSingleLocation(id: number) {
+  getSingleLocation(id: number): Observable<Location> {
     return this.http.get<Location>(`${this.apiUrl}/location/${id}`);
   }
 
-  getSingleLocationByName(name: string) {
+  getLocationsByName(name: string): Observable<ApiResponseList<Location>> {
     return this.http.get<ApiResponseList<Location>>(
       `${this.apiUrl}/location/?name=${name}`
     );

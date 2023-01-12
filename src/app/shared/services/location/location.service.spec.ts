@@ -32,9 +32,9 @@ describe('LocationService', () => {
     expect(spy).toBeCalledWith(1);
   });
 
-  it('should be test getSingleLocationByName', () => {
-    const spy = jest.spyOn(service, 'getSingleLocationByName');
-    service.getSingleLocationByName('Earth');
+  it('should be test getLocationsByName', () => {
+    const spy = jest.spyOn(service, 'getLocationsByName');
+    service.getLocationsByName('Earth');
     expect(spy).toBeCalled();
     expect(spy).toBeCalledTimes(1);
     expect(spy).toBeCalledWith('Earth');

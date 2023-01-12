@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   debounceTime,
@@ -14,7 +14,7 @@ import { LocationService } from '../../../../shared/services/location/location.s
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnDestroy {
+export class ListComponent implements OnInit, OnDestroy {
   subcribes: Subscription[] = [];
   locations: Location[] = [];
   private readonly searchSubject = new Subject<string>();
@@ -25,24 +25,30 @@ export class ListComponent implements OnDestroy {
     private readonly service: LocationService
   ) {
     this.subcribes.push(
-      this.service.getAllLocations().subscribe((resp) => {
-        this.locations = resp.results;
-      })
-    );
-    this.subcribes.push(
       this.searchSubject
         .pipe(debounceTime(400), distinctUntilChanged())
         .subscribe((searchQuery) => {
           this.service
-            .getSingleLocationByName(searchQuery)
+            .getLocationsByName(searchQuery)
             .subscribe((resp) => {
               this.locations = resp.results;
             });
         })
     );
   }
+  ngOnInit(): void {
+    this.getLocations();
+  }
 
-  onClickCard(id: number) {
+  getLocations(): void {
+    this.subcribes.push(
+      this.service.getAllLocations().subscribe((resp) => {
+        this.locations = resp.results;
+      })
+    );
+  }
+
+  onClickCard(id: number): void {
     this.router.navigateByUrl(`location/${id}`);
   }
 
