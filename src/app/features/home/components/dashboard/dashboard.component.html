@@ -5,34 +5,34 @@
         <h2>Dashboard Totals</h2>
       </mat-card-header>
       <mat-card-content>
-        <div class="list-card-control-panel">
+        <div class="list-card">
           <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
+            <div class="list-card-content-item">
+              <div class="list-card-content-item-key">
                 <label>Characters</label>
               </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>60</span>
+              <div class="list-card-content-item-value">
+                <span>{{ totalOfCharacters }}</span>
               </div>
             </div>
           </mat-card>
           <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
+            <div class="list-card-content-item">
+              <div class="list-card-content-item-key">
                 <label>Episodes</label>
               </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>10</span>
+              <div class="list-card-content-item-value">
+                <span>{{ totalOfEpisodes }}</span>
               </div>
             </div>
           </mat-card>
           <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
+            <div class="list-card-content-item">
+              <div class="list-card-content-item-key">
                 <label>Locations</label>
               </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>50</span>
+              <div class="list-card-content-item-value">
+                <span>{{ totalOfLocations }}</span>
               </div>
             </div>
           </mat-card>
@@ -46,37 +46,8 @@
         <h2>Chart of Character per Episode</h2>
       </mat-card-header>
       <mat-card-content>
-        <div class="list-card-control-panel">
-          <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
-                <label>Characters</label>
-              </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>60</span>
-              </div>
-            </div>
-          </mat-card>
-          <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
-                <label>Episodes</label>
-              </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>10</span>
-              </div>
-            </div>
-          </mat-card>
-          <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
-                <label>Locations</label>
-              </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>50</span>
-              </div>
-            </div>
-          </mat-card>
+        <div class="w-100">
+          <canvas id="chartEpisode">{{ chartEpisode }}</canvas>
         </div>
       </mat-card-content>
     </mat-card>
@@ -87,37 +58,8 @@
         <h2>Chart of Character per Location</h2>
       </mat-card-header>
       <mat-card-content>
-        <div class="list-card-control-panel">
-          <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
-                <label>Characters</label>
-              </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>60</span>
-              </div>
-            </div>
-          </mat-card>
-          <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
-                <label>Episodes</label>
-              </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>10</span>
-              </div>
-            </div>
-          </mat-card>
-          <mat-card>
-            <div class="list-card-control-panel-content-item">
-              <div class="list-card-control-panel-content-item-key">
-                <label>Locations</label>
-              </div>
-              <div class="list-card-control-panel-content-item-value">
-                <span>50</span>
-              </div>
-            </div>
-          </mat-card>
+        <div class="chart-container">
+          <canvas id="chartLocation">{{ chartLocation }}</canvas>
         </div>
       </mat-card-content>
     </mat-card>

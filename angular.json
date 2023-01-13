@@ -28,7 +28,7 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/chart.js/dist/chart.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
