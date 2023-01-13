@@ -28,6 +28,12 @@
 - Chart of Character per Episode
 - Chart of Character per Location
 
+## Instalation
+
+```bash
+npm i
+```
+
 ## Run
 
 ```bash
